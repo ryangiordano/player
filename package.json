@@ -1,0 +1,11 @@
+{
+  "name": "KioskPlayer",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "jsdoc": "^3.4.3",
+    "mocha": "^3.4.2"
+  }
+}
