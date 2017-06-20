@@ -3,7 +3,6 @@ define(["require", "exports"], function (require, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
     var FileManipulator = (function () {
         function FileManipulator() {
-            var _this = this;
             //cordova.file.applicationStorageDirectory - Root directory of the application's sandbox; on iOS & windows this location is read-only (but specific subdirectories [like /Documents on iOS or /localState on windows] are read-write). All data contained within is private to the app. (iOS, Android, BlackBerry 10, OSX)
             //console.log('files stored here:', cordova.file.dataDirectory);
             //console.log('root dir of the app:', cordova.file.applicationDirectory)
@@ -22,13 +21,14 @@ define(["require", "exports"], function (require, exports) {
             //            })
             //        });
             //});
-            var filename = "config.json";
-            //save a file
-            this.saveFile(filename);
-            setTimeout(function () {
-                //console log the file once found
-                console.log(_this.getFile(filename));
-            }, 3000);
+            //let filename = "config.json";
+            ////save a file
+            //this.saveFile(filename)
+            //setTimeout(() => {
+            //    //console log the file once found
+            //    console.log(this.getFile(filename));
+            //}, 3000);
+            this.setEventListeners();
         }
         FileManipulator.prototype.getFile = function (fileName) {
             var returnFile;
@@ -62,6 +62,40 @@ define(["require", "exports"], function (require, exports) {
             return returnFile;
         };
         FileManipulator.prototype.unzipFile = function () {
+        };
+        FileManipulator.prototype.setEventListeners = function () {
+            document.getElementById("createFile").addEventListener("click", this.createFile);
+            document.getElementById("writeFile").addEventListener("click", this.writeFile);
+            document.getElementById("readFile").addEventListener("click", this.readFile);
+            document.getElementById("removeFile").addEventListener("click", this.removeFile);
+        };
+        FileManipulator.prototype.createFile = function () {
+            var _this = this;
+            var type = window.TEMPORARY;
+            var size = 5 * 1024 * 1024;
+            alert("Clicked");
+            window.requestFileSystem(type, size, function (fs) {
+                alert("where're in fs");
+                fs.root.getFile('log.txt', { create: true, exclusive: true }, function (fileEntry) {
+                    alert('File creation successfull!');
+                }, _this.handleError);
+            }, function (err) {
+                _this.handleError(err);
+            });
+        };
+        FileManipulator.prototype.writeFile = function () {
+            var type = window.TEMPORARY;
+            var size = 5 * 1024 * 1024;
+            window.requestFileSystem(type, size, function (fs) {
+            }, function (err) {
+            });
+        };
+        FileManipulator.prototype.readFile = function () {
+        };
+        FileManipulator.prototype.removeFile = function () {
+        };
+        FileManipulator.prototype.handleError = function (err) {
+            alert(err);
         };
         return FileManipulator;
     }());

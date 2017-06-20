@@ -18,18 +18,18 @@
         //            })
         //        });
         //});
-        let filename = "config.json";
-        //save a file
-        this.saveFile(filename)
+        //let filename = "config.json";
+        ////save a file
+        //this.saveFile(filename)
 
-        setTimeout(() => {
-            //console log the file once found
-            console.log(this.getFile(filename));
-        }, 3000);
+        //setTimeout(() => {
+        //    //console log the file once found
+        //    console.log(this.getFile(filename));
+        //}, 3000);
+        this.setEventListeners();
     }
 
     getFile(fileName: string): File {
-
         let returnFile: File;
         //TODO: Research what gets returned with a file get request
         window.requestFileSystem(window.LocalFileSystem.PERSISTEN, 0, fs => {
@@ -45,7 +45,7 @@
         return returnFile;
     }
     saveFile(fileName: string): File {
-        let returnFile:File;
+        let returnFile: File;
         window.requestFileSystem(window.LocalFileSystem.PERSISTENT, 0, fs => {
             console.log(fs.name)
             fs.root.getFile(fileName, { create: true, exclusive: false },
@@ -63,5 +63,39 @@
         return returnFile;
     }
     unzipFile() {
+    }
+    setEventListeners() {
+        document.getElementById("createFile").addEventListener("click", this.createFile);
+        document.getElementById("writeFile").addEventListener("click", this.writeFile);
+        document.getElementById("readFile").addEventListener("click", this.readFile);
+        document.getElementById("removeFile").addEventListener("click", this.removeFile);
+    }
+    createFile() {
+        let type = window.TEMPORARY;
+        let size = 5 * 1024 * 1024;
+        alert("Clicked")
+        window.requestFileSystem(type, size,
+            (fs) => {
+                alert("where're in fs")
+                fs.root.getFile('log.txt', { create: true, exclusive: true }, function (fileEntry) {
+                    alert('File creation successfull!')
+                }, this.handleError);
+            }, (err) => {
+                this.handleError(err);
+            })
+    }
+    writeFile() {
+        let type = window.TEMPORARY;
+        let size = 5 * 1024 * 1024;
+        window.requestFileSystem(type, size, (fs) => {
+        }, (err) => {
+        })
+    }
+    readFile() {
+    }
+    removeFile() {
+    }
+    handleError(err) {
+        alert(err);
     }
 }
