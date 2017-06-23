@@ -39,6 +39,7 @@ interface FileSystem {
     /** The root directory of the file system. */
     root: DirectoryEntry;
     writeFile(fileEntry:Entry)
+    //writeFile(fileEntry:FileEntry)
 }
 
 /** 

@@ -4,4 +4,7 @@
     <DebuggerFlavor>AndroidEmulator</DebuggerFlavor>
     <AndroidEmulatorID>AndroidEmulatorTablet;Google Emulator - Tablet</AndroidEmulatorID>
   </PropertyGroup>
+  <PropertyGroup>
+    <ReferenceCachePath>C:\Users\KaizenDaruma\AppData\Local\Temp\KioskPlayer_refcache</ReferenceCachePath>
+  </PropertyGroup>
 </Project>
